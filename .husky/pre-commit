@@ -1,4 +1,17 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# Executar lint-staged primeiro
 npx lint-staged
+
+# Executar o build do Next.js
+echo "🔄 Executando next build..."
+npm run build
+
+# Se o build falhar, o commit será abortado
+if [ $? -ne 0 ]; then
+  echo "❌ Build falhou. Commit abortado."
+  exit 1
+fi
+
+echo "✅ Build executado com sucesso!"
