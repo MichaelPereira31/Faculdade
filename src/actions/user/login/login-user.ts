@@ -1,11 +1,12 @@
 "use server";
-import { z } from "zod";
+import { string, z } from "zod";
 
 import { LoginUserDTO } from "@/db/dtos/user/login-user-dto";
 import { UserRepository } from "@/db/Repositories/user-repository";
 import { JwtService } from "@/lib/auth/jwt";
 
 import { loginUserSchema } from "./schema";
+import { id } from "zod/v4/locales";
 
 export const loginUser = async (data: LoginUserDTO) => {
   try {
@@ -31,11 +32,12 @@ export const loginUser = async (data: LoginUserDTO) => {
       message: "Usuário autenticado com sucesso",
       data: {
         user: {
+          id: user.id,
           email: user.email,
           name: user.name,
           type: user.type,
+          token: jsonWebToken.accessToken,
         },
-        token: jsonWebToken,
       },
     };
   } catch (error) {

@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { TabsContent } from "@/components/ui/tabs";
+import { useAuth } from "@/context/auth-context";
 
 interface LoginFormValues {
   email: string;
@@ -38,7 +39,7 @@ export default function Login() {
       remember: false,
     },
   });
-
+  const { setUser } = useAuth();
   const onSubmit = async (data: LoginFormValues) => {
     setIsLoading(true);
 
@@ -49,20 +50,7 @@ export default function Login() {
         toast.error("Erro ao autenticar");
         return;
       }
-
-      localStorage.setItem(
-        "accessToken",
-        authentication.data.token.accessToken,
-      );
-      localStorage.setItem(
-        "refreshToken",
-        authentication.data.token.refreshToken,
-      );
-      localStorage.setItem("user", JSON.stringify(authentication.data.user));
-
-      if (data.remember) {
-        localStorage.setItem("rememberMe", "true");
-      }
+      setUser(authentication.data.user);
 
       toast.success("Login realizado com sucesso!");
       router.push("/");
