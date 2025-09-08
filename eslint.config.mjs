@@ -16,9 +16,11 @@ const eslintConfig = [
     plugins: {
       "simple-import-sort": simpleImportSort,
     },
+    files: ["src/generated/**/*.js", "src/generated/**/*.ts"],
     rules: {
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
+      "@typescript-eslint/no-unused-expressions": "off",
     },
   },
   {
