@@ -6,11 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "type-check": "tsc --noEmit",
+    "seed": "node prisma/seed.js",
     "prepare": "husky install",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "prisma:seed": "ts-node ./src/db/seed.ts"
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
